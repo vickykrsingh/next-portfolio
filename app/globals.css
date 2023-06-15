@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.auth-container {
+  @apply bg-customGray w-screen min-h-[90vh];
+}
+.main-container {
+  @apply bg-customGray w-screen min-h-[90vh] px-4 md:px-12 lg:px-16 xl:px-24 2xl:px-28;
+}
+.auth-cont-box-shadow {
+  box-shadow: 12px 12px 4px rgba(0, 0, 0, 0.25);
+}
+.transparent-input {
+  @apply bg-transparent py-3 border-0 border-b-2 border-customGray focus:outline-none placeholder:text-customGray w-full text-customGray focus:text-customWhite focus:border-customWhite focus:placeholder:text-customWhite;
+}
+.btn-gray {
+  @apply w-40 bg-customGray text-customNeon font-semibold hover:bg-customNeon hover:text-customGray transition-all duration-200 border-customGray border-2 rounded-md hover:scale-95;
+}
+.btn-neon {
+  @apply w-40 bg-customNeon text-customGray font-semibold hover:bg-customGray hover:text-customNeon transition-all duration-200 border-customNeon border-2 hover:scale-95;
+}
+.google-login-btn {
+  @apply w-full py-2 bg-customWhite text-customGray text-sm font-semibold flex items-center justify-center gap-3 hover:bg-customGray hover:text-customNeon transition-all duration-200 border-customNeon border-2 rounded-md;
+}
+.mesh-blur-top {
+  position: absolute;
+  width: 539px;
+  height: 616px;
+  left: 198px;
+  top: -212px;
+
+  background: rgba(90, 220, 233, 0.7);
+  filter: blur(150px);
+}
+.mesh-blur-bottom {
+  position: absolute;
+  width: 539px;
+  height: 616px;
+  left: 768px;
+  top: 546px;
+
+  background: #5adce9;
+  filter: blur(150px);
+}
+.nav-box-shadow {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.navLink {
+  @apply flex items-center justify-center gap-1 text-customNeon px-4 py-2 hover:bg-customNeon hover:text-customGray transition-all rounded-md cursor-pointer;
+}
+.navLink-sm {
+  @apply flex items-center justify-center gap-1 rounded-md text-customGray px-4 py-2 hover:scale-90 transition-all hover:bg-customGray hover:text-customNeon  cursor-pointer;
+}
+.cpath {
+  /* clip-path: polygon(100% 0, 100% 100%, 0 100%, 24% 0); */
+}
+.about-profile-img-container {
+  border: 8px solid #5adce9;
+  filter: drop-shadow(8px 8px 0px #5adce9);
+  border-radius: 100px 0px;
+}
