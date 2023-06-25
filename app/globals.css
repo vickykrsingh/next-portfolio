@@ -10,7 +10,10 @@
   @apply bg-customGray w-screen min-h-[90vh];
 }
 .main-container {
-  @apply bg-customGray w-screen min-h-[90vh] px-4 md:px-12 lg:px-16 xl:px-24 2xl:px-28;
+  @apply bg-customGray w-screen min-h-[80vh] px-4 md:px-12 lg:px-16 xl:px-24 2xl:px-28;
+}
+.footer-container {
+  @apply bg-customGray w-screen min-h-[10vh] px-4 md:px-12 lg:px-16 xl:px-24 2xl:px-28;
 }
 .auth-cont-box-shadow {
   box-shadow: 12px 12px 4px rgba(0, 0, 0, 0.25);
@@ -63,4 +66,7 @@
   border: 8px solid #5adce9;
   filter: drop-shadow(8px 8px 0px #5adce9);
   border-radius: 100px 0px;
+}
+.dashboard-link{
+  @apply block rounded-lg bg-customNeon px-4 py-2 text-sm font-medium text-customGray border-2 border-transparent hover:bg-customGray hover:border-customNeon hover:text-customNeon transition-all duration-200;
 }

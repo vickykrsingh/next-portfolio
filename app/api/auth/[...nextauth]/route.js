@@ -2,55 +2,25 @@ import userModel from "@/models/user";
 import dbConnect from "@/utils/connectDb";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { comparePassword } from "@/utils/dcryptpass";
-import axios from "axios";
 
 export const authOptions = {
+  // next auth providers 
   providers: [
+    // google provider
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        email: { label: "email", type: "text", placeholder: "email" },
-        password: { label: "password", type: "text" },
-      },
-      async authorize(credentials, req) {
-        const { email, password } = credentials;
-        try {
-          await dbConnect();
-          if (!email || !password) {
-            throw new Error("Invalid Email or Password");
-          }
-          // check existing user
-          const credentialUser = await userModel.findOne({ email: email });
-          if (!credentialUser) {
-            throw new Error("Couldn't registered!");
-          }
-          const matchedPass = await comparePassword(password, credentialUser.password);
-          if (!matchedPass) {
-            throw new Error("Wrong Password");
-          }
-          console.log(credentialUser)
-          return JSON.stringify(credentialUser);
-        } catch (error) {
-          return null;
-        }
-      },
-    }),
+    // others provider is here.......
   ],
+  // callbacks when user successfully signin or signup 
   callbacks: {
-    async signIn({ account, profile, user, credentials }) {
-      // console.log('ACCOUNT IS ------------------ ',account)
-      // console.log('PROFILE IS ------------------ ',profile)
-      // console.log('USER IS ------------------ ',user)
-      // console.log('CREDENTIALS IS ------------------ ',credentials)
+    // signIn function provided by default by next.js and inside the profile argument stored the signin user information
+    async signIn({profile}) {
       try {
+        // before sign in establish the connection to the database
         await dbConnect();
-
+        // if profile has some value then this is executed
         if (profile) {
           // check if user already exists
           const userExists = await userModel.findOne({ email: profile.email });
@@ -59,40 +29,32 @@ export const authOptions = {
           if (!userExists) {
             await userModel.create({
               email: profile.email,
-              username: profile.name.replace(" ", "").toLowerCase(),
+              username: profile.name.toLowerCase(),
               image: profile.picture,
             });
           }
-          
-
+          // if all is okay the returning true
           return true;
         }
-        if(credentials){
-          if (!credentials?.email || !credentials?.password) {
-            throw new Error("Invalid Email or Password");
-          }
-          // check existing user
-          const credentialUser = await userModel.findOne({ email: credentials?.email });
-          if (!credentialUser) {
-            throw new Error("Couldn't registered!");
-          }
-          const matchedPass = await comparePassword(credentials.password, credentialUser.password);
-          if (!matchedPass) {
-            throw new Error("Wrong Password");
-          }
-          return true;
-        }
-        
-
       } catch (error) {
+        // if any error occurred then returned false
         return false;
       }
     },
-    async jwt({ token , account }) {
-      return { token , account }
-    },
+    // session method by default provided by next-auth/callbacks
+    async session ({session}){
+
+      try {
+        // finding the user is already exists
+        const sessionUser = await userModel.findOne({email:session.user.email})
+        // if user exists then  set the value of session.user._id to sessionUser._id.toString
+      session.user.id=sessionUser._id.toString()
+      return session;
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
-  secret: process.env.MY_SECRET,
 };
 
 const handler = NextAuth(authOptions);

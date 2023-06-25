@@ -9,12 +9,9 @@ const userSchema = new Schema ({
     email:{
         type:String,
     },
-    password:{
-        type:String,
-    },
     image:{
         type:String,
-        default:'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_640.png'
+        required:true
     },
     role:{
         type:Number,

@@ -3,13 +3,16 @@ const nextConfig = {
     experimental: {
       appDir: true,
       serverComponentsExternalPackages: ["mongoose"],
+      serverActions:true,
     },
     images: {
-      domains: ['lh3.googleusercontent.com'],
+      // next js allow that image which is stored in specific domain otherwise throw error
+      domains: ['lh3.googleusercontent.com','res.cloudinary.com'],
     },
     webpack(config) {
       config.experiments = {
         ...config.experiments,
+        // top level await true otherwise it thrown error
         topLevelAwait: true,
       }
       return config
