@@ -2,10 +2,11 @@ import dbConnect from "@/utils/connectDb";
 import contactModel from "@/models/contact";
 import { NextResponse } from "next/server";
 import chalk from "chalk";
+import { revalidatePath } from "next/cache";
+
 // Contact creation of message by from the client side which receiving 5 parameter 
 export const POST = async (req) => {
   const {name,email,interest,budget,message} = await req.json()
-  console.log(chalk.bgRed(name,email,interest,budget,message))
     try {
         // database connection
         await dbConnect();
@@ -44,4 +45,44 @@ export const POST = async (req) => {
           success:false,
         })
       }
+}
+
+
+
+
+
+export const GET = async () => {
+  await dbConnect()
+ try {
+    const messages = await contactModel.find();
+    return NextResponse.json({
+        messages,
+        success:true,
+        message:"fetched all messages successfully."
+    })
+ } catch (error) {
+    return NextResponse.json({
+        success:false,
+        message:"Internal server fault"
+    })
+ }
+}
+
+
+export const DELETE = async (request) => {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id')
+  try {
+    await dbConnect()
+    await contactModel.findByIdAndDelete(id)
+    return NextResponse.json({
+      message:'deleted successfully',
+      success:true,
+    },{status:200})
+  } catch (error) {
+    return NextResponse.json({
+      message:'internal server fault',
+      success:false
+    },{status:500})
+  }
 }

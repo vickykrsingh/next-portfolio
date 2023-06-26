@@ -32,7 +32,7 @@ function ContactForm() {
   // sending state variable value to the create message server action function 
   const myEmail = await session?.user?.email;
     try {
-      let {data} = await axios.post('http://localhost:3000/api/contact/create-message',{
+      let {data} = await axios.post('http://localhost:3000/api/contact',{
         name,
         email:myEmail,
         interest,
