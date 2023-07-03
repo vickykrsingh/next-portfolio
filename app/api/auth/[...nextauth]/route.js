@@ -44,14 +44,16 @@ export const authOptions = {
     // session method by default provided by next-auth/callbacks
     async session ({session}){
 
-      try {
-        // finding the user is already exists
-        const sessionUser = await userModel.findOne({email:session.user.email})
-        // if user exists then  set the value of session.user._id to sessionUser._id.toString
-      session.user.id=sessionUser._id.toString()
-      return session;
-      } catch (error) {
-        console.log(error)
+      if(session){
+        try {
+          // finding the user is already exists
+          const sessionUser = await userModel.findOne({email:session?.user?.email})
+          // if user exists then  set the value of session.user._id to sessionUser._id.toString
+        session.user.id=sessionUser._id.toString()
+        return session;
+        } catch (error) {
+          return null
+        }
       }
     }
   },

@@ -68,7 +68,7 @@ function ContactForm() {
             name="name"
             type="text"
             id="small_outlined"
-            className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-customWhite bg-transparent border-1 border-customWhite appearance-none focus:outline-none focus:ring-0 focus:border-customNeon peer"
+            className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-customWhite bg-transparent border-[1px] border-customWhite appearance-none focus:outline-none focus:ring-0 focus:border-customNeon peer"
             placeholder=" "
           />
           <label
@@ -87,7 +87,7 @@ function ContactForm() {
           name="email"
             type="text"
             id="small_outlined"
-            className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-customWhite bg-transparent border-1 border-customWhite appearance-none focus:outline-none focus:ring-0 focus:border-customNeon peer"
+            className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-customWhite bg-transparent border-[1px] border-customWhite appearance-none focus:outline-none focus:ring-0 focus:border-customNeon peer"
             placeholder=" "
           />
           <label
@@ -104,7 +104,7 @@ function ContactForm() {
         onChange={(e)=>setInterest(e.target.value)}
         name="interest"
           id="small"
-          className="block w-full p-2 text-xs text-customWhite border border-customWhite bg-customGray focus:ring-customNeon focus:border-customNeon "
+          className="block w-full p-2 text-xs outline-none text-customWhite border border-customWhite bg-customGray focus:ring-customNeon focus:border-customNeon "
         >
           <option >What you are interested</option>
           <option value="web-designing">Web designing</option>
@@ -119,7 +119,7 @@ function ContactForm() {
         onChange={(e)=>setBudget(e.target.value)}
         name="budget"
           id="small"
-          className="block w-full p-2 text-xs text-customWhite border border-customWhite bg-customGray focus:ring-customNeon focus:border-customNeon "
+          className="block w-full p-2 text-xs outline-none text-customWhite border border-customWhite bg-customGray focus:ring-customNeon focus:border-customNeon "
         >
           <option>Select your budget in $</option>
           <option value="web-designing">1 to 25</option>
@@ -135,7 +135,7 @@ function ContactForm() {
         name="message"
           id="message"
           rows="4"
-          className="resize-none block p-2.5 w-full text-sm text-customWhite bg-customGray border border-customWhite focus:ring-customNeon focus:border-customNeon place placeholder:text-customWhite"
+          className="resize-none block outline-none p-2.5 w-full text-sm text-customWhite bg-customGray border border-customWhite focus:ring-customNeon focus:border-customNeon place placeholder:text-customWhite"
           placeholder="Drop a message...."
         ></textarea>
         {/* Send button section */}

@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import Nav from "./Components/Nav";
 import Provider from "./Components/Provider";
 const inter = Inter({ subsets: ["latin"] });
-import Footer from "./Components/Footer";
 import { Toaster } from "react-hot-toast";
 // metadata for better SEO
 export const metadata = {
@@ -22,7 +21,6 @@ export default function RootLayout({ children }) {
         <Provider>
           <Nav />
           {children}
-          {/* <Footer/> */}
         </Provider>
       </body>
     </html>

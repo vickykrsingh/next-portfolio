@@ -1,8 +1,6 @@
 import dbConnect from "@/utils/connectDb";
 import contactModel from "@/models/contact";
 import { NextResponse } from "next/server";
-import chalk from "chalk";
-import { revalidatePath } from "next/cache";
 
 // Contact creation of message by from the client side which receiving 5 parameter 
 export const POST = async (req) => {

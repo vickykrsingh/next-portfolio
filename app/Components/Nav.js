@@ -181,7 +181,7 @@ function Nav() {
           </Link>
 
           {/* Dashboard section */}
-          <Dropdown style={'navLink-sm duration-1000'}/>
+          <Dropdown style={'navLink-sm duration-1000'}  />
 
           {/* Login / Logout section */}
           {session?.user ? (

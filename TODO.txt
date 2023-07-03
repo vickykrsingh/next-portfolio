@@ -1,0 +1,14 @@
+❎get single contact message
+✅delete project
+❎update project
+❎add recent projects in home screen
+❎dashboard dropdown is not closing after clicking it
+❎jwt auth and middleware to protect dashboard route
+
+
+issue:-
+
+1> nav is not closing in small screen after clicking on dashboard child links 
+2> edit feature required for admin
+3> delete cloudinary image while deleting projects from database
+4>

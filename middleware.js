@@ -1,12 +1,22 @@
-
-import chalk from "chalk"
-import { getToken } from "next-auth/jwt"
 import { NextResponse } from "next/server"
+// import { getServerSession } from "next-auth"
+// import { authOptions } from "./app/api/auth/[...nextauth]/route"
+// import { authOptions } from './app/api/auth/[...nextauth]/route'
 
-export default async function middleware(req){
-    console.log(chalk.bgYellow('hello world from middleware file'))
+
+export default async function middleware(request){
+    
+    // const session = await getServerSession(authOptions)
+    // return NextResponse.redirect(new URL('/', request.url))
+    // return NextResponse.redirect('/')
+    // console.log('hello world')
+    // return NextResponse.rewrite(new URL('/', request.url))
+    // console.log(session)
+    // return NextResponse.redirect(process.env.NODE_URL)
+    // console.log('first')
+
 }
 
 export const config = {
-    matcher:["/auth/login","/auth/register"]
+    matcher:["/dashboard/:path*"]
 }
