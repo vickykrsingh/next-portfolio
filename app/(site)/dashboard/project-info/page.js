@@ -6,10 +6,6 @@ import { toast } from "react-hot-toast";
 import Image from "next/image";
 import Spinner from "../../../assests/spinner.svg";
 
-export const metadata = {
-  title:"Admin | Projects",
-  description : "All projects of vicky"
-}
 
 function ProjectInfo() {
   const [loading, setIsLoading] = useState(false);
