@@ -1,25 +1,26 @@
-import { Schema , model , models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
-const userSchema = new Schema ({
-    
-    username:{
-        type:String,
-        required:true
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
     },
-    email:{
-        type:String,
+    email: {
+      type: String,
     },
-    image:{
-        type:String,
-        required:true
+    image: {
+      type: String,
+      required: true,
     },
-    role:{
-        type:Number,
-        default:0
+    role: {
+      type: Number,
+      default: 0,
     },
-},{timestamps:true})
+  },
+  { timestamps: true }
+);
 
-
-const userModel = models.users || model('users',userSchema)
+const userModel = models.users || model("users", userSchema);
 
 export default userModel;

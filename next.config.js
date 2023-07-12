@@ -7,7 +7,7 @@ const nextConfig = {
     },
     images: {
       // next js allow that image which is stored in specific domain otherwise throw error
-      domains: ['lh3.googleusercontent.com','res.cloudinary.com'],
+      domains: ['lh3.googleusercontent.com','res.cloudinary.com','avatars.githubusercontent.com'],
     },
     webpack(config) {
       config.experiments = {

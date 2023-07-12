@@ -53,22 +53,26 @@ export const POST = async (request) => {
       project,
     });
   } catch (error) {
-    console.log(error);
+    return NextResponse.json({
+      message: "Something went wrong",
+      success: false,
+    });
   }
 };
 
 export const DELETE = async (request) => {
-  await dbConnect()
+  await dbConnect();
   try {
-    const id = request.nextUrl.searchParams.get('id')
-    const resp = await projectModel.findByIdAndDelete(id)
+    const id = request.nextUrl.searchParams.get("id");
+    const resp = await projectModel.findByIdAndDelete(id);
     return NextResponse.json({
-      message:'Project created successfully',
-      success:true    })
+      message: "Project created successfully",
+      success: true,
+    });
   } catch (error) {
     return NextResponse.json({
-      message:'Internal server error',
-      success:false
-    })
+      message: "Internal server error",
+      success: false,
+    });
   }
-}
+};

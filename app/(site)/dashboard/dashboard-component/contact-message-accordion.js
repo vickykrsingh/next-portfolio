@@ -4,9 +4,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FiArrowDown, FiTrash } from "react-icons/fi";
-import { FaTrash } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +16,7 @@ export default function MessageAccordion({
   message,
   id,
 }) {
-  const router = useRouter()
+  const router = useRouter();
   const deleteHandler = async (id) => {
     let resp = await fetch(`http://localhost:3000/api/contact?id=${id}`, {
       method: "DELETE",
@@ -29,7 +27,7 @@ export default function MessageAccordion({
     resp = await resp.json();
     if (resp.success) {
       toast.success("deleted successfully");
-      router.refresh()
+      router.refresh();
     } else {
       toast.error("something went wrong while deleting");
     }

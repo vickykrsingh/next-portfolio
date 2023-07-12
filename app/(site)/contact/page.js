@@ -1,14 +1,14 @@
 import React from "react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
-import { ToastContainer } from "react-toastify";
 import { FaInbox } from "react-icons/fa";
 import { MdWavingHand } from "react-icons/md";
 import ContactForm from "@/app/Components/ContactForm";
 import contactImg from "../../assests/contact.svg";
 import Image from "next/image";
+export const metadata = {
+  title:"Vicky | Contact",
+  description:"contact to vicky"
+}
 async function Contact() {
-  // const session = await getServerSession(authOptions);
   return (
     <>
       <main className="main-container flex flex-col gap-5 lg:flex-row items-center lg:justify-between py-6">
@@ -43,18 +43,6 @@ async function Contact() {
         <section className="w-full lg:w-1/2">
           <ContactForm />
         </section>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
       </main>
     </>
   );

@@ -4,7 +4,7 @@ import ProjectForm from "./ProjectForm";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-function CreateProject({setProject}) {
+function CreateProject({ setProject }) {
   // state to store project all fields
   const [fields, setFields] = useState({
     title: "",
@@ -44,16 +44,10 @@ function CreateProject({setProject}) {
         });
         setIsLoading(false);
         if (data?.success) {
-          const resp = await axios.get('http://localhost:3000/api/project/get-all')
-          setProject(resp?.data?.project)
-          // setFields({
-          //   title:'',
-          //   description:'',
-          //   redirect:'',
-          //   github:'',
-          //   category:'',
-          //   technology:''
-          // })
+          const resp = await axios.get(
+            "http://localhost:3000/api/project/get-all"
+          );
+          setProject(resp?.data?.project);
           toast.success(data?.message);
         } else {
           toast.error(data?.message);
@@ -74,7 +68,7 @@ function CreateProject({setProject}) {
       setFields={setFields}
       setImage={setImage}
       isLoading={isLoading}
-      actionName={'Create'}
+      actionName={"Create"}
     />
   );
 }
@@ -113,7 +107,6 @@ export const imageUpload = async (myImg) => {
       message: "Something went wrong while uploading image on cloudinary",
     };
   }
-
 
   return {
     signature: resp?.signature,

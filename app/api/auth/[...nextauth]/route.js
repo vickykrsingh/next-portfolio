@@ -4,7 +4,7 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
-  // next auth providers 
+  // next auth providers
   providers: [
     // google provider
     GoogleProvider({
@@ -13,10 +13,10 @@ export const authOptions = {
     }),
     // others provider is here.......
   ],
-  // callbacks when user successfully signin or signup 
+  // callbacks when user successfully signin or signup
   callbacks: {
     // signIn function provided by default by next.js and inside the profile argument stored the signin user information
-    async signIn({profile}) {
+    async signIn({ profile }) {
       try {
         // before sign in establish the connection to the database
         await dbConnect();
@@ -42,20 +42,20 @@ export const authOptions = {
       }
     },
     // session method by default provided by next-auth/callbacks
-    async session ({session}){
-
-      if(session){
-        try {
-          // finding the user is already exists
-          const sessionUser = await userModel.findOne({email:session?.user?.email})
-          // if user exists then  set the value of session.user._id to sessionUser._id.toString
-        session.user.id=sessionUser._id.toString()
-        return session;
-        } catch (error) {
-          return null
-        }
+    async jwt({ token, user }) {
+      await dbConnect();
+      const userData = await userModel.findOne({ email: token?.email });
+      if (userData) {
+        token.role = userData.role;
+        token._id = userData._id.toString();
       }
-    }
+      return token;
+    },
+    // If you want to use the role in client components
+    async session({ session, token }) {
+      if (session?.user) session.user.role = token?.role;
+      return session;
+    },
   },
 };
 

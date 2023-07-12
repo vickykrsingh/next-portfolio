@@ -1,7 +1,6 @@
 import React from "react";
-import loading from '@/app/assests/spinner.svg'
+import loading from "@/app/assests/spinner.svg";
 import Image from "next/image";
-
 
 function ProjectForm({
   fields,
@@ -11,7 +10,7 @@ function ProjectForm({
   setFields,
   setImage,
   isLoading,
-  actionName
+  actionName,
 }) {
   return (
     <form className="flex flex-col gap-5" onSubmit={(e) => handleSubmit(e)}>
@@ -21,14 +20,14 @@ function ProjectForm({
           className="hidden"
           id="file_input"
           type="file"
-          name="image" 
+          name="image"
           onChange={(e) => setImage(e.target.files[0])}
         />
         <label
           htmlFor="file_input"
           className="flex items-center justify-center text-opacity-75 w-full outline-none h-10 text-sm text-neutral-400 border border-gray-300 cursor-pointer bg-customGray"
         >
-          {image?.name ? image?.name : 'Upload Image...'}
+          {image?.name ? image?.name : "Upload Image..."}
         </label>
       </section>
       <ProjectInputField
@@ -82,8 +81,16 @@ function ProjectForm({
         placeholder="Write description for this project"
       ></textarea>
       {/* Send button section */}
-      <button disabled={isLoading} className="btn-neon px-3 py-2 disabled:cursor-not-allowed flex items-center justify-center" type="submit">
-        { isLoading ? <Image src={loading} width={30} height={30} alt="Loading" /> : actionName }
+      <button
+        disabled={isLoading}
+        className="btn-neon px-3 py-2 disabled:cursor-not-allowed flex items-center justify-center"
+        type="submit"
+      >
+        {isLoading ? (
+          <Image src={loading} width={30} height={30} alt="Loading" />
+        ) : (
+          actionName
+        )}
       </button>
     </form>
   );

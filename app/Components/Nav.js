@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { RiHomeSmileFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 import { MdContacts, MdWork, MdSpaceDashboard } from "react-icons/md";
@@ -7,28 +7,29 @@ import { RxCrossCircled } from "react-icons/rx";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
-import { signOut, useSession, getProviders , signIn } from "next-auth/react";
+import { signOut, useSession, getProviders, signIn } from "next-auth/react";
 import Profile from "./userProfile";
 import Image from "next/image";
 import Dropdown from "./DropdownDashboard";
+import { NavContext } from "@/context/NavContext";
+import {usePathname} from 'next/navigation'
 
-function Nav() {
+function Nav({session}) {
   // Nav open&close state
-  const [openNav, setOpenNav] = useState(false);
+  const [openNav, setOpenNav] = useContext(NavContext);
   //  Next auth providers state
   const [provider, setProvider] = useState(null);
   // after user login profile popup state
-  const [profilePopUp,setProfilePopUp] = useState(false)
-  //  Next auth session state
-  const { data: session } = useSession();
+  const [profilePopUp, setProfilePopUp] = useState(false);
   // Google Sign in OnClick function
+  const [isAdmin,setIsAdmin] = useState(false)
+  const path = usePathname()
   const handleSignIn = async () => {
     // google sign in inbuilt function provided by next auth
     const resp = await signIn("google");
-    console.log("this is the response", resp);
     alert("response", resp);
   };
-
+  // console.log(userSession)
   useEffect(() => {
     // setting providers from the cookies provided by next auth after successfully login if not login then state should be null
     const setUpProvider = async () => {
@@ -36,7 +37,10 @@ function Nav() {
       setProvider(response);
     };
     setUpProvider();
-  }, []);
+    if(session?.user?.role===1){
+      setIsAdmin(true)
+    }
+  }, [session]);
 
   return (
     <nav className="w-full h-[10vh] flex items-center justify-center">
@@ -47,16 +51,17 @@ function Nav() {
         </h1>
         {/* logo section <- */}
         {/* ============================================================= Large screen Nav menu ============================================================== */}
-        <ul className="lg:flex items-center justify-center hidden relative">
+        <ul className="lg:flex items-center gap-1 justify-center hidden relative">
           {/* Nav menu section -> */}
 
           {/* Home section */}
           <Link
             onClick={() => setOpenNav(false)}
             href="/"
-            className="navLink duration-250"
+            className={`${path==='/' ? 'navLinkActive':'navLink'} duration-250`}
           >
             <span>
+             
               <RiHomeSmileFill />
             </span>
             <span className="font-semibold">HOME</span>
@@ -66,7 +71,7 @@ function Nav() {
           <Link
             onClick={() => setOpenNav(false)}
             href="/about"
-            className="navLink duration-250"
+            className={`${path==='/about' ? 'navLinkActive':'navLink'} duration-250`}
           >
             <span>
               <FaUser />
@@ -78,7 +83,7 @@ function Nav() {
           <Link
             onClick={() => setOpenNav(false)}
             href="/contact"
-            className="navLink duration-250"
+            className={`${path==='/contact' ? 'navLinkActive':'navLink'} duration-250`}
           >
             <span>
               <MdContacts />
@@ -89,8 +94,8 @@ function Nav() {
           {/* Projects section */}
           <Link
             onClick={() => setOpenNav(false)}
-            href="/projects"
-            className="navLink duration-250"
+            href="/projects/all"
+            className={`${path==='/projects/all' || path==='/projects/frontend' || path==='/projects/fullstack' ? 'navLinkActive':'navLink'} duration-250`}
           >
             <span>
               <MdWork />
@@ -99,14 +104,18 @@ function Nav() {
           </Link>
 
           {/* Dashboard section */}
-          <Dropdown style={'navLink duration-250'}/>
+          
+          {
+            isAdmin && <Dropdown style={`${path === '/dashboard' || path === '/dashboard/contact-info' || path === '/dashboard/project-info' ? 'navLinkActive' : 'navLink'} duration-250`} />
+          }
 
           {/* Login/logout section */}
           {!session?.user ? (
             // login section
             <div
               onClick={() => {
-                setOpenNav(false), handleSignIn();
+                setOpenNav(false);
+                handleSignIn();
               }}
               className="navLink duration-250"
             >
@@ -117,7 +126,7 @@ function Nav() {
             </div>
           ) : (
             // logout section
-            <Profile/>
+            <Profile />
           )}
         </ul>
         {/* Nav menu end */}
@@ -130,13 +139,22 @@ function Nav() {
             openNav ? "top-0" : "-top-[450px]"
           } bg-customWhite w-full h-[450px] gap-5 rounded-lg z-50 transition-all duration-200 shadow-xl`}
         >
-          <Image src={session?.user?.image || 'https://res.cloudinary.com/dpd2t0hym/image/upload/v1687698648/unknown-avatar_cxkgts.jpg'} width={35} height={35} className="absolute top-5 left-5 rounded-full" alt="guest_user" />
-          
+          <Image
+            src={
+              session?.user?.image ||
+              "https://res.cloudinary.com/dpd2t0hym/image/upload/v1687698648/unknown-avatar_cxkgts.jpg"
+            }
+            width={35}
+            height={35}
+            className="absolute top-5 left-5 rounded-full"
+            alt="guest_user"
+          />
+
           {/* Home section */}
           <Link
             onClick={() => setOpenNav(false)}
             href="/"
-            className="navLink-sm duration-1000"
+            className={`${path === '/' ? 'navLinkActive-sm' : 'navLink-sm'} duration-1000`}
           >
             <span>
               <RiHomeSmileFill />
@@ -148,7 +166,7 @@ function Nav() {
           <Link
             onClick={() => setOpenNav(false)}
             href="/about"
-            className="navLink-sm duration-1000"
+            className={`${path === '/about' ? 'navLinkActive-sm' : 'navLink-sm'} duration-1000`}
           >
             <span>
               <FaUser />
@@ -160,7 +178,7 @@ function Nav() {
           <Link
             onClick={() => setOpenNav(false)}
             href="/contact"
-            className="navLink-sm duration-1000"
+            className={`${path === '/contact' ? 'navLinkActive-sm' : 'navLink-sm'} duration-1000`}
           >
             <span>
               <MdContacts />
@@ -171,8 +189,8 @@ function Nav() {
           {/* Projects section */}
           <Link
             onClick={() => setOpenNav(false)}
-            href="/projects"
-            className="navLink-sm duration-1000"
+            href="/projects/all"
+            className={`${path==='/projects/all' || path==='/projects/frontend' || path==='/projects/fullstack' ? 'navLinkActive-sm' : 'navLink-sm'} duration-1000`}
           >
             <span>
               <MdWork />
@@ -181,42 +199,42 @@ function Nav() {
           </Link>
 
           {/* Dashboard section */}
-          <Dropdown style={'navLink-sm duration-1000'}  />
+          <Dropdown style={`${path === '/dashboard' || path === '/dashboard/contact-info' || path === '/dashboard/project-info' ? 'navLinkActive-sm' : 'navLink-sm'} duration-1000`} />
 
           {/* Login / Logout section */}
           {session?.user ? (
             // logout section
             <>
-            <div
-              onClick={() => {
-                setOpenNav(false), signOut('google');
-              }}
-              className="navLink-sm duration-1000"
-            >
-              <span>
-                <BsFillShieldLockFill />
-              </span>
-              <span className="font-semibold">LogOut</span>
-            </div>
+              <div
+                onClick={() => {
+                  setOpenNav(false);
+                  signOut();
+                }}
+                className="navLink-sm duration-1000"
+              >
+                <span>
+                  <BsFillShieldLockFill />
+                </span>
+                <span className="font-semibold">LogOut</span>
+              </div>
 
-            <Link
-              onClick={() => 
-                setOpenNav(false)
-              }
-              href={'/profile'}
-              className="navLink-sm duration-1000"
-            >
-              <span>
-                <BsFillShieldLockFill />
-              </span>
-              <span className="font-semibold">Profile</span>
-            </Link>
+              <Link
+                onClick={() => setOpenNav(false)}
+                href={"/profile"}
+                className="navLink-sm duration-1000"
+              >
+                <span>
+                  <BsFillShieldLockFill />
+                </span>
+                <span className="font-semibold">Profile</span>
+              </Link>
             </>
           ) : (
             // login section
             <div
               onClick={() => {
-                setOpenNav(false), handleSignIn();
+                setOpenNav(false);
+                handleSignIn();
               }}
               className="navLink-sm duration-1000"
             >

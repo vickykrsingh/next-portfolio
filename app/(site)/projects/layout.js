@@ -1,13 +1,13 @@
-import ProjectTab from '@/app/Components/ProjectTab'
-import React from 'react'
+import ProjectTab from "@/app/Components/ProjectTab";
+import React from "react";
 
-function layout({children}) {
+function layout({ children }) {
   return (
     <>
-        <ProjectTab/>
-        {children}
+      <ProjectTab />
+      {children}
     </>
-  )
+  );
 }
 
-export default layout
+export default layout;

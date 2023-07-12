@@ -1,24 +1,25 @@
-import React from 'react'
-import Image from 'next/image';
-// import Model from '@/app/Components/modal';
-// import Empty from '@/app/Components/data-not-found';
-import ProjectLayout from '@/app/Components/projectLayout';
+import React from "react";
+import ProjectLayout from "@/app/Components/projectLayout";
 
-async function Frontend() {
-  let project = await fetch(`http://localhost:3000/api/project?category=frontend`,{
-    cache:'no-store',
-    method:'GET',
-    headers:{
-      'Content-type':'application/json'
-    }
-  })
-  if(project.ok){
-    project = await project.json();
-  }
-
-  return (
-    <ProjectLayout project={project} />
-  )
+export const metadata = {
+  title:"Vicky | Frontend projects",
+  description:"all frontend projects of vicky kumar"
 }
 
-export default Frontend
+async function Frontend() {
+  let resp = await fetch(
+    "http://localhost:3000/api/project?category=frontend",
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    }
+  );
+  resp = await resp.json();
+  const categoryProject = resp?.project;
+
+  return <ProjectLayout categoryProject={categoryProject} />;
+}
+
+export default Frontend;

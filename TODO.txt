@@ -2,13 +2,22 @@
 ✅delete project
 ❎update project
 ❎add recent projects in home screen
-❎dashboard dropdown is not closing after clicking it
+✅dashboard dropdown is not closing after clicking it
 ❎jwt auth and middleware to protect dashboard route
 
 
 issue:-
 
-1> nav is not closing in small screen after clicking on dashboard child links 
-2> edit feature required for admin
-3> delete cloudinary image while deleting projects from database
-4>
+1> ✅ nav is not closing in small screen after clicking on dashboard child links 
+2> ✔️ edit feature required for admin
+--------------------------3> ❎ delete cloudinary image while deleting projects from database
+4> ✅ dashboard main page design 
+5> ✔️ dashboard projecject loading animination untill projects loading
+6> -----------------------❎ single contact message fetch with the help of search box
+7> ❎ -------------------all image in that portfolio is need some loading animation with suspense or loading 
+8> ❎ active nav links after clicking on nav links
+9> ❎ middleware for admin and user protected route
+10> ❎ place my logo everywhere
+11> ❎ tailwind gradient text using bg-clip-text
+12> ❎ add framer motiong for while in view and scroll effect
+13> ❎ alert response is showing when login in nav component

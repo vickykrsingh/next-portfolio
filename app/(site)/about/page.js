@@ -3,6 +3,11 @@ import Image from "next/image";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { Suspense } from "react";
 
+export const metadata ={
+  title:"Vicky | About",
+  description:"know more about vicky kumar"
+}
+
 function about() {
   return (
     <main className="main-container pb-5">
