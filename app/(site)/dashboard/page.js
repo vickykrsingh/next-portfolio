@@ -4,10 +4,6 @@ import { useSession } from "next-auth/react";
 import Spinner from "../../assests/spinner.svg";
 import Image from "next/image";
 
-export const metadata = {
-  title:"Admin | dashboard",
-  description:"dashboard home page of vicky kumar admin"
-}
 
 function Dashboard() {
   const session = useSession();
