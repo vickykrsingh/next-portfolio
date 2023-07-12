@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
-import Spinner from "../../../assests/spinner.svg";
+import Spinner from "@/app/assests/spinner.svg";
 
 
 function ProjectInfo() {

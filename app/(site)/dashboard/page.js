@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useSession } from "next-auth/react";
-import Spinner from "../../assests/spinner.svg";
+import Spinner from "@/app/assests/spinner.svg";
 import Image from "next/image";
 
 
