@@ -8,7 +8,7 @@ export const metadata = {
 
 async function Frontend() {
   let resp = await fetch(
-    "https://next-portfolio-e9y8cj8t6-vickykrsingh.vercel.app/api/project?category=frontend",
+    "http://localhost:3000/api/project?category=frontend",
     {
       method: "GET",
       headers: {
