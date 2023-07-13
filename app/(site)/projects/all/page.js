@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 async function AllProjects() {
-  let resp = await fetch("http://localhost:3000/api/project?category=all", {
+  let resp = await fetch("https://next-portfolio-e9y8cj8t6-vickykrsingh.vercel.app/api/project?category=all", {
     method: "GET",
     headers: {
       "Content-type": "application/json",
